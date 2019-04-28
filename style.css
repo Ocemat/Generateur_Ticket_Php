@@ -1,0 +1,27 @@
+.container-fluid {
+    width: 90%;
+    margin-top: 20px;
+    margin-bottom: 60px;
+    
+}
+
+h1, h2 {
+    color: blue;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+body {
+    background: lemonchiffon;
+}
+
+.row {
+    margin-right:-90px;
+    margin-left:-90px;
+ }
+
+ th {
+     width: 200%;
+ }
