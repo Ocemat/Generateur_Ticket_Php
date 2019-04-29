@@ -1,5 +1,5 @@
 <section id="container1" class="container-fluid">
-    <form action="index.php/createTicket" method="POST">
+    <form action="index.php/createTicket" method="GET">
 
         <div class="container">
             <div class="row">
@@ -114,6 +114,7 @@
 
                         <tr>
                             <th> N° Ticket </th>
+                            <th> Date et Heure </th>
                             <th> Nom Noob </th>
                             <th> Reason </th>
                             <th> Nom Boss </th>
@@ -125,7 +126,8 @@
                         foreach ($tickets as $ticket) {
                             ?>
                             <tr>
-                                <td> <?= $ticket->getId() ?> </td>                    
+                                <td> <?= $ticket->getId() ?> </td>    
+                                <td> <?= $ticket->getDateHeure()?>  </td>                
                                 <td> <?= $ticket->getIdNoob()?>  </td>
                                 <td> <?= $ticket->getIdReason() ?> </td>
                                 <td> <?= $ticket->getidFormateur() ?> </td>

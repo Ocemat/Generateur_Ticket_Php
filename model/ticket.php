@@ -2,6 +2,7 @@
 
 class Ticket {
     private $id;
+    private $dateHeure;
     private $id_noob;
     private $id_reason;
     private $id_formateur;
@@ -9,8 +10,9 @@ class Ticket {
    
 
 
-public function __construct($id, $id_noob, $id_reason, $id_formateur, $id_urgence) {
+public function __construct($id, $dateHeure, $id_noob, $id_reason, $id_formateur, $id_urgence) {
     $this -> id = $id;
+    $this -> dateHeure = $dateHeure;
     $this -> id_noob = $id_noob;
     $this -> id_reason = $id_reason;
     $this -> id_formateur = $id_formateur;
@@ -18,7 +20,11 @@ public function __construct($id, $id_noob, $id_reason, $id_formateur, $id_urgenc
 }
 
 public function getId(){
-    return $this-> id;
+    return $this -> id;
+}
+
+public function getDateHeure() {
+    return $this -> dateHeure;
 }
 
 public function getIdNoob(){

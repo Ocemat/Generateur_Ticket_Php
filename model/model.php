@@ -100,12 +100,14 @@ function get_all_urgence() {
 
 // Créer une requête INSERT INTO
 //enregistrement d'un ticket dans la base de données
-function createTicketIntoBDD($id_noob, $id_reason, $id_formateur, $id_urgence) {
-    $sql = "INSERT INTO `ticket` (`id`, `id_noob`, `id_reason`, `id_formateur`, `id_urgence`) VALUES (NULL, :id_noob, :id_reason, :id_formateur, :id_urgence);";
+function createTicketIntoBDD($id_noob, $dateHeure, $id_reason, $id_formateur, $id_urgence) {
+    $sql = "INSERT INTO `ticket` (`id`, `dateHeure`, `id_noob`, `id_reason`, `id_formateur`, `id_urgence`) VALUES (NULL, :dateHeure, :id_noob, :id_reason, :id_formateur, :id_urgence);";
     //il me faut un objet pdo 
     $pdo = createConnexion();
     $sth = $pdo->prepare($sql);
+    // récupère la date courante
     $sth->bindParam(':id_noob', $id_noob);
+    $sth->bindParam(':dateHeure', $dateHeure);
     $sth->bindParam(':id_reason', $id_reason);
     $sth->bindParam(':id_formateur', $id_formateur);
     $sth->bindParam(':id_urgence', $id_urgence);
@@ -121,7 +123,7 @@ function get_all_tickets() {
     $pdo = createConnexion();
     //b) prépare requete sql 
     
-    $stmt = $pdo->query ('SELECT t.id, c.nom as n_nom, c.prenom as n_prenom, f.nom as f_nom, f.prenom as f_prenom, r.libelle as r_libelle, u.libelle as u_libelle
+    $stmt = $pdo->query ('SELECT t.id, t.dateHeure as t_dh, c.nom as n_nom, c.prenom as n_prenom, f.nom as f_nom, f.prenom as f_prenom, r.libelle as r_libelle, u.libelle as u_libelle
                         FROM ticket as t 
                         INNER JOIN contact as c ON t.id_noob = c.id
                         INNER JOIN formateur as f ON t.id_formateur = f.id
@@ -133,9 +135,9 @@ function get_all_tickets() {
         $resultats = [];
     
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {      
-            $noob=$row["n_prenom"]." ".$row["n_nom"];
-            $boss=$row["f_prenom"]." ".$row["f_nom"];
-        $tickets = new Ticket ($row['id'],$noob, $row["r_libelle"], $boss, $row["u_libelle"]);
+            $noob = $row["n_prenom"]." ".$row["n_nom"];
+            $boss = $row["f_prenom"]." ".$row["f_nom"];
+        $tickets = new Ticket ($row['id'], $row['t_dh'], $noob, $row["r_libelle"], $boss, $row["u_libelle"]);
         
         $resultats[] = $tickets;
     }  
@@ -144,6 +146,7 @@ function get_all_tickets() {
         //fermeture de la connexion à la bdd
         $pdo = null;
 }
+
 
 function delete_contact() {
     //a) se connecter à la bdd 
