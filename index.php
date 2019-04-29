@@ -4,8 +4,6 @@
 require("model/model.php");
 require("controller/controllers.php");
 
-// On inclut le header
-require("tpl/headerView.php"); 
 
 
 //URL que le visiteur à tapper
@@ -20,15 +18,14 @@ if($uri === '/generateur_tickets/') {
     create_ticket();
 } elseif($uri === '/generateur_tickets/index.php/delete' && isset($_GET['id'])) {
     deleteTicket($_GET['id']);
-} elseif($uri === '/generateur_tickets/index.php/ticketView') {
-    get_tickets();
+//} elseif($uri === '/generateur_tickets/index.php/ticketView') {
+//    get_tickets();
 } else {
     header('HTTP/1.1 404 NOT FOUND');
     echo'<html><body><h1> Page Not Found </h1></body></html>';
 }
 
 
-// On inclut le pied de page
-require("tpl/footerView.php"); 
+
 
 ?>

@@ -24,6 +24,7 @@ public function getPrenom(){
 public function getNom(){
     return $this-> nom;
 }
+
 }
 
 ?>

@@ -36,6 +36,7 @@ public function getIdFormateur(){
 public function getIdUrgence(){
     return $this-> id_urgence;
 }
+
 }
 
 ?>

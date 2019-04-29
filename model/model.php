@@ -17,7 +17,6 @@ function createConnexion() {
     } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
-
     return $pdo;
 }
 
@@ -121,12 +120,24 @@ function get_all_tickets() {
     //a) se connecter à la bdd 
     $pdo = createConnexion();
     //b) prépare requete sql 
-    $stmt = $pdo->query ('SELECT * FROM ticket');
+    
+    $stmt = $pdo->query ('SELECT t.id, c.nom as n_nom, c.prenom as n_prenom, f.nom as f_nom, f.prenom as f_prenom, r.libelle as r_libelle, u.libelle as u_libelle
+                        FROM ticket as t 
+                        INNER JOIN contact as c ON t.id_noob = c.id
+                        INNER JOIN formateur as f ON t.id_formateur = f.id
+                        INNER JOIN reason as r ON t.id_reason = r.id
+                        INNER JOIN urgence as u ON t.id_urgence = u.id
+                        ORDER BY t.id ASC');
+  
     //c) executer requête sql
         $resultats = [];
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-        $tickets = new Ticket ($row["id"], $row["id_noob"], $row["id_reason"], $row["id_formateur"], $row["id_urgence"]);
-        $resultats[] = $tickets; 
+    
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {      
+            $noob=$row["n_prenom"]." ".$row["n_nom"];
+            $boss=$row["f_prenom"]." ".$row["f_nom"];
+        $tickets = new Ticket ($row['id'],$noob, $row["r_libelle"], $boss, $row["u_libelle"]);
+        
+        $resultats[] = $tickets;
     }  
         return $resultats;
 
@@ -139,6 +150,7 @@ function delete_contact() {
     $pdo = createConnexion();
     //b) prépare requete sql 
     $id = $_GET['id'];
+    
     $stmt = $pdo->exec ('DELETE FROM ticket WHERE id=' .$id);   
     if ( !$stmt ) {
         echo 'La suppression n\'a pas eu lieu';
@@ -147,5 +159,6 @@ function delete_contact() {
     }
     $pdo = null;
 }
+
 
 ?>
