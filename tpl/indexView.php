@@ -127,7 +127,7 @@
                             ?>
                             <tr>
                                 <td> <?= $ticket->getId() ?> </td>    
-                                <td> <?= $ticket->getDateHeure()?>  </td>                
+                                <td> <?= $ticket->getDateHeure() -> format('d-m-Y H:m:s');?>  </td>                
                                 <td> <?= $ticket->getIdNoob()?>  </td>
                                 <td> <?= $ticket->getIdReason() ?> </td>
                                 <td> <?= $ticket->getidFormateur() ?> </td>

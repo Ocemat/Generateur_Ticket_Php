@@ -26,11 +26,11 @@ function create_ticket() {
     $id_urgence = filter_var($_GET['listeUrgence']);
     //echo "urgence  $id_urgence";
     
-    //$tz = new DateTimeZone('Europe/Paris');
-    //$dateHeure = new DateTime('Y-m-d H:i:s', new DateTimeZone('Europe/Paris'));//utilisera le bon fuseau horaire
-    //echo $dateHeure->format('d-m-Y H:i:s');
-     $dateHeure = date('Y-m-d H:i:s');
-    // echo $dateHeure;
+    $dateHeure = date('Y-m-d H:i:s');
+    //$dh = date_timezone_set($dateHeure, timezone_open('Europe/Paris'));
+
+    //$dh = date_format($dateHeure, 'Y-m-d H:i:s') ;
+   
     //3 il demande au model de faire ce qui doit être fait
     createTicketIntoBDD($id_noob, $dateHeure, $id_reason, $id_formateur, $id_urgence);
    //3. appeler la bonne vue

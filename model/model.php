@@ -137,9 +137,10 @@ function get_all_tickets() {
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {      
             $noob = $row["n_prenom"]." ".$row["n_nom"];
             $boss = $row["f_prenom"]." ".$row["f_nom"];
-        $tickets = new Ticket ($row['id'], $row['t_dh'], $noob, $row["r_libelle"], $boss, $row["u_libelle"]);
-        
-        $resultats[] = $tickets;
+            //$dateHeure = $row["t_dh"] -> format('d-m-Y H:i:s');
+            $objectDateTimePHP = DateTime::createFromFormat('Y-m-d H:i:s', $row["t_dh"]);
+            $tickets = new Ticket ($row['id'], $objectDateTimePHP, $noob, $row["r_libelle"], $boss, $row["u_libelle"]);
+            $resultats[] = $tickets;
     }  
         return $resultats;
 

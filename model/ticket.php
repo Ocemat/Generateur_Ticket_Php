@@ -12,7 +12,7 @@ class Ticket {
 
 public function __construct($id, $dateHeure, $id_noob, $id_reason, $id_formateur, $id_urgence) {
     $this -> id = $id;
-    $this -> dateHeure = $dateHeure;
+    $this -> dateHeure = $dateHeure; //<-- retour de la bdd donc string. donc au format date Mysql cad DateAnglaise
     $this -> id_noob = $id_noob;
     $this -> id_reason = $id_reason;
     $this -> id_formateur = $id_formateur;
