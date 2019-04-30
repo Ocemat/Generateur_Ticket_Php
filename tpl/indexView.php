@@ -14,7 +14,7 @@
                             <tr>
                                 <td>
                                     <select name="listeNoobs" size="1">
-                                        <option value=" "> Qui est le noob ? </option>
+                                        <option value=" " hidden> Qui est le noob ? </option>
                                         <?php foreach ($noobs as $humain) { ?>
                                             <option value=<?= $humain->getId() ?>> <?= $humain->getNom() ?> <?= $humain->getPrenom() ?> </option>
                                         <?php }  ?>
@@ -36,7 +36,7 @@
                             <tr>
                                 <td>
                                     <select name="listeRaisons" size="1">
-                                        <option value=" "> Quelle est votre raison ? </option>
+                                        <option value=" " hidden> Quelle est votre raison ? </option>
                                         <?php foreach ($reasons as $reason) { ?>
                                             <option value=<?= $reason->getId() ?>> <?= $reason->getLibelle() ?> </option>
                                         <?php }  ?>
@@ -58,7 +58,7 @@
                             <tr>
                                 <td>
                                     <select name="listeFormateurs" size="1">
-                                        <option value=" "> Qui est le formateur ? </option>
+                                        <option value=" " hidden> Qui est le formateur ? </option>
                                         <?php foreach ($bosses as $boss) { ?>
                                             <option value="<?= $boss->getId() ?>"> <?= $boss->getPrenom() ?> <?= $boss->getNom() ?> </option>
                                         <?php }  ?>
@@ -79,8 +79,8 @@
                         <tbody>
                             <tr>
                                 <td>
+                                    <option value=" " hidden> Quelle est votre urgence ?</option>
                                     <select name="listeUrgence" size="1">
-                                        <option value=" "> Quelle est votre urgence ? </option>
                                         <?php foreach ($urgences as $urgence) { ?>
                                             <option value=<?= $urgence->getId() ?>> <?= $urgence->getLibelle() ?> </option>
                                         <?php }  ?>
@@ -115,6 +115,7 @@
                         <tr>
                             <th> N° Ticket </th>
                             <th> Date et Heure </th>
+                            <th> Temps d'attente </th>
                             <th> Nom Noob </th>
                             <th> Reason </th>
                             <th> Nom Boss </th>
@@ -127,7 +128,17 @@
                             ?>
                             <tr>
                                 <td> <?= $ticket->getId() ?> </td>    
-                                <td> <?= $ticket->getDateHeure() -> format('d-m-Y H:m:s');?>  </td>                
+                                <td> <?= $date = $ticket->getDateHeure() -> format('d-m-Y H:m:s');?>  </td>  
+                                <td> <?= date('d-m-Y H:m:s')?>  </td> 
+
+                                <td><!--$date_a = strtotime($date); 
+                                echo "Heure ticket $date_a";
+                                $date_b = time(); 
+                                echo "heure now $date_b";
+                                $total_heure = date_diff($date_b, $date_a); 
+                                echo $tpsAttente;-->
+                                </td>
+                
                                 <td> <?= $ticket->getIdNoob()?>  </td>
                                 <td> <?= $ticket->getIdReason() ?> </td>
                                 <td> <?= $ticket->getidFormateur() ?> </td>
@@ -144,9 +155,11 @@
     </div>
 
     </div>
+    <a href = "html2pdf/html2pdf.class.php"> Générer un pdf </a>
 </section>
 
-
+ 
+                                
 
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

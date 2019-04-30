@@ -7,6 +7,7 @@ function get_all() {
     $bosses = get_all_boss();
     $urgences = get_all_urgence();
     $tickets = get_all_tickets();
+    //$tpsAttente = dateDiff($date1, $date2);
 
     //3. appeler la bonne vue
     include "tpl/headerView.php"; 
