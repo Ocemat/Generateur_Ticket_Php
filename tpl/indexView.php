@@ -129,15 +129,18 @@
                             <tr>
                                 <td> <?= $ticket->getId() ?> </td>    
                                 <td> <?= $date = $ticket->getDateHeure() -> format('d-m-Y H:m:s');?>  </td>  
-                                <td> <?= date('d-m-Y H:m:s')?>  </td> 
-
-                                <td><!--$date_a = strtotime($date); 
-                                echo "Heure ticket $date_a";
-                                $date_b = time(); 
-                                echo "heure now $date_b";
-                                $total_heure = date_diff($date_b, $date_a); 
-                                echo $tpsAttente;-->
-                                </td>
+                                <td><?php 
+                                $timestamp = time() - strtotime($date);
+                                $date = new \DateTime();
+                                // If you must have use time zones
+                                //$date = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+                                $date->setTimestamp($timestamp);
+                                echo $date->format('H:i:s');
+                                ?> / 
+                                <?= $timestamp = time();
+                                $date = new \DateTime();
+                                $date->setTimestamp($timestamp);
+                                echo $date->format('H:i:s'); ?></td>
                 
                                 <td> <?= $ticket->getIdNoob()?>  </td>
                                 <td> <?= $ticket->getIdReason() ?> </td>

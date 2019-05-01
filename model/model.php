@@ -100,14 +100,14 @@ function get_all_urgence() {
 
 // Créer une requête INSERT INTO
 //enregistrement d'un ticket dans la base de données
-function createTicketIntoBDD($id_noob, $dateHeure, $id_reason, $id_formateur, $id_urgence) {
-    $sql = "INSERT INTO `ticket` (`id`, `dateHeure`, `id_noob`, `id_reason`, `id_formateur`, `id_urgence`) VALUES (NULL, :dateHeure, :id_noob, :id_reason, :id_formateur, :id_urgence);";
+function createTicketIntoBDD($id_noob, $id_reason, $id_formateur, $id_urgence) {
+    $sql = "INSERT INTO `ticket` (`id`, `dateHeure`, `id_noob`, `id_reason`, `id_formateur`, `id_urgence`) VALUES (NULL, NOW(), :id_noob, :id_reason, :id_formateur, :id_urgence);";
     //il me faut un objet pdo 
     $pdo = createConnexion();
     $sth = $pdo->prepare($sql);
     // récupère la date courante
     $sth->bindParam(':id_noob', $id_noob);
-    $sth->bindParam(':dateHeure', $dateHeure);
+   // $sth->bindParam(':dateHeure', $dateHeure);
     $sth->bindParam(':id_reason', $id_reason);
     $sth->bindParam(':id_formateur', $id_formateur);
     $sth->bindParam(':id_urgence', $id_urgence);
@@ -163,23 +163,5 @@ function delete_contact() {
     $pdo = null;
 }
 
-function dateDiff($date1, $date2){
-    $diff = abs($date1 - $date2); // abs pour avoir la valeur absolute, ainsi éviter d'avoir une différence négative
-    $retour = array();
- 
-    $tmp = $diff;
-    $retour['second'] = $tmp % 60;
- 
-    $tmp = floor( ($tmp - $retour['second']) /60 );
-    $retour['minute'] = $tmp % 60;
- 
-    $tmp = floor( ($tmp - $retour['minute'])/60 );
-    $retour['hour'] = $tmp % 24;
- 
-    $tmp = floor( ($tmp - $retour['hour'])  /24 );
-    $retour['day'] = $tmp;
- 
-    return $retour;
-}
 
 ?>

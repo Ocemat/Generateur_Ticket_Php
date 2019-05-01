@@ -7,7 +7,7 @@ function get_all() {
     $bosses = get_all_boss();
     $urgences = get_all_urgence();
     $tickets = get_all_tickets();
-    //$tpsAttente = dateDiff($date1, $date2);
+
 
     //3. appeler la bonne vue
     include "tpl/headerView.php"; 
@@ -27,13 +27,11 @@ function create_ticket() {
     $id_urgence = filter_var($_GET['listeUrgence']);
     //echo "urgence  $id_urgence";
     
-    $dateHeure = date('Y-m-d H:i:s');
-    //$dh = date_timezone_set($dateHeure, timezone_open('Europe/Paris'));
-
-    //$dh = date_format($dateHeure, 'Y-m-d H:i:s') ;
+    //$dateHeure = date('Y-m-d H:i:s');
+    
    
     //3 il demande au model de faire ce qui doit être fait
-    createTicketIntoBDD($id_noob, $dateHeure, $id_reason, $id_formateur, $id_urgence);
+    createTicketIntoBDD($id_noob, $id_reason, $id_formateur, $id_urgence);
    //3. appeler la bonne vue
     header("Location: /generateur_tickets/index.php");
 };
