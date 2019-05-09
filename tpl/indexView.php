@@ -128,20 +128,8 @@
                             ?>
                             <tr>
                                 <td> <?= $ticket->getId() ?> </td>    
-                                <td> <?= $date = $ticket->getDateHeure() -> format('d-m-Y H:m:s');?>  </td>  
-                                <td><?php 
-                                $timestamp = time() - strtotime($date);
-                                $date = new \DateTime();
-                                // If you must have use time zones
-                                //$date = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-                                $date->setTimestamp($timestamp);
-                                echo $date->format('H:i:s');
-                                ?> / 
-                                <?= $timestamp = time();
-                                $date = new \DateTime();
-                                $date->setTimestamp($timestamp);
-                                echo $date->format('H:i:s'); ?></td>
-                
+                                <td> <?= $date = $ticket->getDateHeure() -> format('d-m-Y H:i:s');?>  </td>
+                                <td> Il y a <?= $ticket->getTpsAttente(); ?></td>
                                 <td> <?= $ticket->getIdNoob()?>  </td>
                                 <td> <?= $ticket->getIdReason() ?> </td>
                                 <td> <?= $ticket->getidFormateur() ?> </td>
@@ -161,8 +149,6 @@
     <a href = "html2pdf/html2pdf.class.php"> Générer un pdf </a>
 </section>
 
- 
-                                
-
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="/generateur_tickets/node_modules/moment/min/moment-with-locales.min.js"></script>

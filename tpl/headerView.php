@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/generateur_tickets/style.css" />
 </head>
 <body>
-    <div class="col-md-6"> <img src="/generateur_tickets/tpl/img/noob.jpg" width="30px"> </div>
-    <h1>Bienvenue sur votre Générateur de Tickets</h1>
-    <br> <br> 
+
+    <div class="rowHead" id="rowHead">
+        <div class="column1"> <img src="/generateur_tickets/tpl/img/ticket.png" width="150px"> </div>
+        <div class="column2"><h1>Bienvenue sur votre <br>Générateur de Tickets</h1></div>
+        <br> <br> 
+    </div>
+
+

@@ -19,7 +19,7 @@ function get_all() {
 function create_ticket() {
     //2 il traite la demande de l'utilisateur 
     $id_noob = filter_var($_GET['listeNoobs']);
-    echo "noob  $id_noob";
+    //echo "noob  $id_noob";
     $id_reason = filter_var($_GET['listeRaisons']);
     //echo "reason  $id_reason";
     $id_formateur = filter_var($_GET['listeFormateurs']);
@@ -29,7 +29,6 @@ function create_ticket() {
     
     //$dateHeure = date('Y-m-d H:i:s');
     
-   
     //3 il demande au model de faire ce qui doit être fait
     createTicketIntoBDD($id_noob, $id_reason, $id_formateur, $id_urgence);
    //3. appeler la bonne vue

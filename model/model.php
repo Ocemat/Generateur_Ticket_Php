@@ -123,7 +123,7 @@ function get_all_tickets() {
     $pdo = createConnexion();
     //b) prépare requete sql 
     
-    $stmt = $pdo->query ('SELECT t.id, t.dateHeure as t_dh, c.nom as n_nom, c.prenom as n_prenom, f.nom as f_nom, f.prenom as f_prenom, r.libelle as r_libelle, u.libelle as u_libelle
+    $stmt = $pdo->query ('SELECT TIMESTAMPDIFF(SECOND, t.dateHeure, NOW()) AS diffSecondes, t.id, t.dateHeure as t_dh, c.nom as n_nom, c.prenom as n_prenom, f.nom as f_nom, f.prenom as f_prenom, r.libelle as r_libelle, u.libelle as u_libelle
                         FROM ticket as t 
                         INNER JOIN contact as c ON t.id_noob = c.id
                         INNER JOIN formateur as f ON t.id_formateur = f.id
@@ -133,12 +133,22 @@ function get_all_tickets() {
   
     //c) executer requête sql
         $resultats = [];
-    
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {      
             $noob = $row["n_prenom"]." ".$row["n_nom"];
             $boss = $row["f_prenom"]." ".$row["f_nom"];
-            $objectDateTimePHP = DateTime::createFromFormat('Y-m-d H:i:s', $row["t_dh"]);
-            $tickets = new Ticket ($row['id'], $objectDateTimePHP, $noob, $row["r_libelle"], $boss, $row["u_libelle"]);
+            $objectDateTimePHP = \DateTime::createFromFormat('Y-m-d H:i:s', $row["t_dh"]);
+
+
+            $jours = floor($row["diffSecondes"]/86400);
+            $reste = $row["diffSecondes"]%86400;
+            $heures = floor($reste/3600);
+            $reste = $reste%3600;
+            $minutes = floor($reste/60);
+            $secondes = $reste%60;   
+
+            $tpsAttentePHP = $jours." j <br>".$heures."h ".$minutes."min ";
+
+            $tickets = new Ticket ($row["id"], $objectDateTimePHP, $tpsAttentePHP, $noob, $row["r_libelle"], $boss, $row["u_libelle"]);
             $resultats[] = $tickets;
     }  
         return $resultats;
